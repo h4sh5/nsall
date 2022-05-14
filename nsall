@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+if (( $# != 1 )); then
+    echo "Usage: $0 <host> [ns server]"
+    exit 1
+fi
+
+
+HOST=$1
+
+types=(A AAAA AFSDB APL CAA CDNSKEY CDS CERT CNAME CSYNC DHCID DLV DNAME DNSKEY DS EUI48 EUI64 HINFO HIP IPSECKEY KEY KX LOC MX NAPTR NS NSEC NSEC3 NSEC3PARAM OPENPGPKEY PTR RRSIG RP SIG SMIMEA SOA SRV SSHFP TA TKEY TLSA TSIG TXT URI)
+
+for t in "${types[@]}"; do host -t $t $1 $2  | grep -v "has no .* record"; done
